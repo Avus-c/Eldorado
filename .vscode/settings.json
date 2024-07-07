@@ -1,0 +1,22 @@
+{
+	"C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+		"abseil-*",
+		"google-*",
+		"altera-*",
+		"android-*",
+		"zircon-temporary-objects",
+		"darwin-*",
+		"fuchsia-*",
+		"llvmlibc-*",
+		"objc-*",
+		"openmp-*",
+	],
+	"C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
+		"*",
+	],
+	"C_Cpp.formatting": "clangFormat",
+	"cSpell.words": [
+		"Eldorado"
+	],
+	"editor.formatOnSave": true
+}
