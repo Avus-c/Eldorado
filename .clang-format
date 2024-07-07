@@ -7,7 +7,7 @@ AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveBitFields: Consecutive
 AlignConsecutiveDeclarations: Consecutive
 AlignConsecutiveMacros: Consecutive
-AlignOperands: Align
+AlignOperands: AlignAfterOperator
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: true
@@ -55,7 +55,7 @@ Cpp11BracedListStyle: false
 DerivePointerAlignment: false
 EmptyLineBeforeAccessModifier: LogicalBlock
 FixNamespaceComments: true
-IncludeBlocks: Regroup
+IncludeBlocks: Preserve
 IndentCaseBlocks: true
 IndentExternBlock: Indent
 IndentGotoLabels: false

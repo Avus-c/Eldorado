@@ -18,12 +18,16 @@ CPMAddPackage(
 	GITHUB_REPOSITORY google/googletest
 	GIT_TAG main # gtest follows a live-at-head policy
 	OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON" "BUILD_GMOCK OFF"
+	EXCLUDE_FROM_ALL Yes
+	SYSTEM Yes
 )
 
 CPMAddPackage(
 	NAME raylib
 	GITHUB_REPOSITORY raysan5/raylib
 	GIT_TAG 5.0
+	EXCLUDE_FROM_ALL Yes
+	SYSTEM Yes
 )
 
 add_executable(${PROJECT_NAME})
