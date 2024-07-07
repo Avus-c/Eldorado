@@ -20,7 +20,17 @@ CPMAddPackage(
 	OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON" "BUILD_GMOCK OFF"
 )
 
+CPMAddPackage(
+	NAME raylib
+	GITHUB_REPOSITORY raysan5/raylib
+	GIT_TAG 5.0
+)
+
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
 	src/main.cpp
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+	raylib
 )
