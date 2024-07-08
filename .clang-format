@@ -49,7 +49,7 @@ BreakBeforeConceptDeclarations: true
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
 BreakStringLiterals: true
-ColumnLimit: 120
+ColumnLimit: 100
 CompactNamespaces: true
 Cpp11BracedListStyle: false
 DerivePointerAlignment: false
