@@ -19,7 +19,7 @@ void reDraw( Player &player )
 
 void draw( Player &player, size_t count )
 {
-	while ( count > 0 || !player.m_drawPile.empty() )
+	while ( count > 0 && !player.m_drawPile.empty() )
 	{
 		player.m_inHand.push_back( player.m_drawPile.back() );
 		player.m_drawPile.pop_back();
@@ -33,7 +33,7 @@ void draw( Player &player, size_t count )
 
 	shuffleDiscardPile( player );
 
-	while ( count > 0 || !player.m_drawPile.empty() )
+	while ( count > 0 && !player.m_drawPile.empty() )
 	{
 		player.m_inHand.push_back( player.m_drawPile.back() );
 		player.m_drawPile.pop_back();
