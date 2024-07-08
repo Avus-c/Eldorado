@@ -43,11 +43,21 @@ void draw( Player &player, size_t count )
 
 void play( Player &player, Cards::Type toPlay )
 {
+	if ( player.m_inHand.empty() )
+	{
+		return;
+	}
+
 	auto iter = std::ranges::find_if( player.m_inHand,
 	                                  [ toPlay ]( Cards::Type type )
 	                                  {
 		                                  return toPlay == type;
 	                                  } );
+
+	if ( iter == player.m_inHand.end() )
+	{
+		return;
+	}
 
 	player.m_played.push_back( *iter );
 	player.m_inHand.erase( iter );
