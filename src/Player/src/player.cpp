@@ -26,7 +26,7 @@ void draw( Player &player, size_t count )
 		count--;
 	}
 
-	if ( !player.m_drawPile.empty() )
+	if ( count == 0 )
 	{
 		return;
 	}
