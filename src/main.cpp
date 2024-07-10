@@ -5,29 +5,32 @@ const int screenHeight = 1200;
 
 void DrawShop()
 {
-	int tmp = 155;
-	DrawRectangle( 100 + tmp, screenHeight - 400, 200, 300, GRAY );
-	DrawRectangle( 305 + tmp, screenHeight - 400, 200, 300, GRAY );
-	DrawRectangle( 510 + tmp, screenHeight - 400, 200, 300, GRAY );
-	DrawRectangle( 715 + tmp, screenHeight - 400, 200, 300, GRAY );
-	DrawRectangle( 920 + tmp, screenHeight - 400, 200, 300, GRAY );
-	DrawRectangle( 1125 + tmp, screenHeight - 400, 200, 300, GRAY );
+	const int tmp        = 155;
+	const int cardWidth  = 200;
+	const int cardHeight = 300;
+	const int cardMargin = 5;
 
-	DrawRectangle( 50, screenHeight - 420, 1700, 15, RED );
+	auto draw = [ tmp, cardHeight, cardWidth, cardMargin ]( int rowOffset )
+	{
+		for ( size_t i = 0; i < 6; i++ )
+		{
+			DrawRectangle( 100 + ( ( cardMargin + cardWidth ) * i ) + tmp,
+			               screenHeight - rowOffset,
+			               cardWidth,
+			               cardHeight,
+			               GRAY );
+		}
+	};
 
-	DrawRectangle( 100 + tmp, screenHeight - 725, 200, 300, GRAY );
-	DrawRectangle( 305 + tmp, screenHeight - 725, 200, 300, GRAY );
-	DrawRectangle( 510 + tmp, screenHeight - 725, 200, 300, GRAY );
-	DrawRectangle( 715 + tmp, screenHeight - 725, 200, 300, GRAY );
-	DrawRectangle( 920 + tmp, screenHeight - 725, 200, 300, GRAY );
-	DrawRectangle( 1125 + tmp, screenHeight - 725, 200, 300, GRAY );
+	int rowOffset = 400;
+	draw( rowOffset );
+	DrawRectangle(
+	    90 + tmp, screenHeight - rowOffset - 20, ( cardWidth + cardMargin ) * 6 + 15, 15, RED );
 
-	DrawRectangle( 100 + tmp, screenHeight - 1050, 200, 300, GRAY );
-	DrawRectangle( 305 + tmp, screenHeight - 1050, 200, 300, GRAY );
-	DrawRectangle( 510 + tmp, screenHeight - 1050, 200, 300, GRAY );
-	DrawRectangle( 715 + tmp, screenHeight - 1050, 200, 300, GRAY );
-	DrawRectangle( 920 + tmp, screenHeight - 1050, 200, 300, GRAY );
-	DrawRectangle( 1125 + tmp, screenHeight - 1050, 200, 300, GRAY );
+	rowOffset = 725;
+	draw( rowOffset );
+	rowOffset = 1030;
+	draw( rowOffset );
 }
 
 int main()
@@ -46,12 +49,14 @@ int main()
 	while ( !WindowShouldClose() )
 	{
 		Vector2 mousePoint = GetMousePosition();
-		if ( CheckCollisionPointRec( mousePoint, turnBox ) && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
+		if ( CheckCollisionPointRec( mousePoint, turnBox )
+		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
 			turnActive = !turnActive;
 		}
 
-		if ( CheckCollisionPointRec( mousePoint, shopBox ) && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
+		if ( CheckCollisionPointRec( mousePoint, shopBox )
+		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
 			shopOpened = !shopOpened;
 		}
@@ -64,11 +69,11 @@ int main()
 
 		if ( turnActive )
 		{
-			DrawText( "Finish Turn!", screenWidth - 145, 7, 20, RED );
+			DrawText( "Finish Turn!", screenWidth - 140, 7, 20, RED );
 		}
 		else
 		{
-			DrawText( "Wait Opponent", screenWidth - 145, 7, 20, WHITE );
+			DrawText( "Wait for ...", screenWidth - 140, 7, 20, WHITE );
 		}
 
 		if ( shopOpened )
