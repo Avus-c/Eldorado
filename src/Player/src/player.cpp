@@ -8,21 +8,21 @@ namespace Player
 
 void reDraw( Player &player )
 {
-	if ( player.m_inHand.size() >= HandSize )
+	if ( player.inHand.size() >= HandSize )
 	{
 		return;
 	}
 
-	size_t toDraw = HandSize - player.m_inHand.size();
+	size_t toDraw = HandSize - player.inHand.size();
 	draw( player, toDraw );
 }
 
 void draw( Player &player, size_t count )
 {
-	while ( count > 0 && !player.m_drawPile.empty() )
+	while ( count > 0 && !player.drawPile.empty() )
 	{
-		player.m_inHand.push_back( player.m_drawPile.back() );
-		player.m_drawPile.pop_back();
+		player.inHand.push_back( player.drawPile.back() );
+		player.drawPile.pop_back();
 		count--;
 	}
 
@@ -33,58 +33,59 @@ void draw( Player &player, size_t count )
 
 	shuffleDiscardPile( player );
 
-	while ( count > 0 && !player.m_drawPile.empty() )
+	while ( count > 0 && !player.drawPile.empty() )
 	{
-		player.m_inHand.push_back( player.m_drawPile.back() );
-		player.m_drawPile.pop_back();
+		player.inHand.push_back( player.drawPile.back() );
+		player.drawPile.pop_back();
 		count--;
 	}
 }
 
 void play( Player &player, Cards::Type toPlay )
 {
-	if ( player.m_inHand.empty() )
+	if ( player.inHand.empty() )
 	{
 		return;
 	}
 
-	auto iter = std::ranges::find_if( player.m_inHand,
+	auto iter = std::ranges::find_if( player.inHand,
 	                                  [ toPlay ]( Cards::Type type )
 	                                  {
 		                                  return toPlay == type;
 	                                  } );
 
-	if ( iter == player.m_inHand.end() )
+	if ( iter == player.inHand.end() )
 	{
 		return;
 	}
 
-	player.m_played.push_back( *iter );
-	player.m_inHand.erase( iter );
+	player.played.push_back( *iter );
+	player.inHand.erase( iter );
 }
 
 void finishTurn( Player &player )
 {
-	player.m_discardPile.append_range( player.m_played );
+	player.discardPile.append_range( player.played );
+	player.played.clear();
 	reDraw( player );
 }
 
 void shuffleDiscardPile( Player &player )
 {
-	if ( player.m_discardPile.empty() )
+	if ( player.discardPile.empty() )
 	{
 		return;
 	}
-	player.m_drawPile.clear(); // make sure it's empty
+	player.drawPile.clear(); // make sure it's empty
 
-	std::ranges::copy( player.m_discardPile, std::back_inserter( player.m_drawPile ) );
+	std::ranges::copy( player.discardPile, std::back_inserter( player.drawPile ) );
 
-	player.m_discardPile.clear();
+	player.discardPile.clear();
 
 	std::random_device rd;
 	std::mt19937       g( rd() );
 
-	std::ranges::shuffle( player.m_drawPile, g );
+	std::ranges::shuffle( player.drawPile, g );
 }
 
 } // namespace Player
