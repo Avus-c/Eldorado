@@ -10,10 +10,14 @@
 		"llvmlibc-*",
 		"objc-*",
 		"openmp-*",
+		"llvm-header-guard",
+		"misc-include-cleaner"
 	],
 	"C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
 		"*",
 	],
+	"C_Cpp.codeAnalysis.clangTidy.enabled": true,
+	"C_Cpp.codeAnalysis.runAutomatically": true,
 	"C_Cpp.formatting": "clangFormat",
 	"cSpell.words": [
 		"Eldorado"

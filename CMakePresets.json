@@ -11,7 +11,8 @@
 				"CMAKE_C_COMPILER": "clang",
 				"CMAKE_CXX_COMPILER": "clang++",
 				"CMAKE_EXPORT_COMPILE_COMMANDS": true,
-				"CPM_SOURCE_CACHE": "${sourceDir}/out/.cpm_cache"
+				"CPM_SOURCE_CACHE": "${sourceDir}/out/.cpm_cache",
+				"BUILD_TESTING": true
 			}
 		},
 		{

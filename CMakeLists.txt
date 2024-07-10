@@ -18,12 +18,22 @@ CPMAddPackage(
 	GITHUB_REPOSITORY google/googletest
 	GIT_TAG main # gtest follows a live-at-head policy
 	OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON" "BUILD_GMOCK OFF"
+	EXCLUDE_FROM_ALL Yes
+	SYSTEM Yes
 )
+
+if(BUILD_TESTING)
+	set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+	include(CTest)
+	enable_testing()
+endif()
 
 CPMAddPackage(
 	NAME raylib
 	GITHUB_REPOSITORY raysan5/raylib
 	GIT_TAG 5.0
+	EXCLUDE_FROM_ALL Yes
+	SYSTEM Yes
 )
 
 add_executable(${PROJECT_NAME})
@@ -34,3 +44,6 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	raylib
 )
+
+add_subdirectory(src/Cards)
+add_subdirectory(src/Player)
