@@ -22,6 +22,12 @@ CPMAddPackage(
 	SYSTEM Yes
 )
 
+if(BUILD_TESTING)
+	set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
+	include(CTest)
+	enable_testing()
+endif()
+
 CPMAddPackage(
 	NAME raylib
 	GITHUB_REPOSITORY raysan5/raylib
