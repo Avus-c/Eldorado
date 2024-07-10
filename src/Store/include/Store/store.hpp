@@ -10,7 +10,7 @@ namespace Store
 
 struct StoreCard
 {
-	Cards::Type type;
+	Cards::Type type  = Cards::Type::Empty;
 	uint8_t     count = 3;
 };
 
