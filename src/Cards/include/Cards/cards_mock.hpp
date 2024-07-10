@@ -8,6 +8,7 @@ namespace Cards
 
 enum class Type : uint8_t
 {
+	Empty,
 	// Base-Cards
 	Researcher, // Forscher
 	Traveller,  // Reisende

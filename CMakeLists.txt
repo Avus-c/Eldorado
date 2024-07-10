@@ -47,3 +47,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 add_subdirectory(src/Cards)
 add_subdirectory(src/Player)
+add_subdirectory(src/Store)
