@@ -1,40 +1,15 @@
 #include <raylib.h>
 
+#include <Renderer/store.hpp>
+#include <Store/store.hpp>
+
 const int screenWidth  = 1800;
 const int screenHeight = 1200;
 
-void DrawShop()
-{
-	const int tmp        = 155;
-	const int cardWidth  = 200;
-	const int cardHeight = 300;
-	const int cardMargin = 5;
-
-	auto draw = [ tmp, cardHeight, cardWidth, cardMargin ]( int rowOffset )
-	{
-		for ( size_t i = 0; i < 6; i++ )
-		{
-			DrawRectangle( 100 + ( ( cardMargin + cardWidth ) * i ) + tmp,
-			               screenHeight - rowOffset,
-			               cardWidth,
-			               cardHeight,
-			               GRAY );
-		}
-	};
-
-	int rowOffset = 400;
-	draw( rowOffset );
-	DrawRectangle(
-	    90 + tmp, screenHeight - rowOffset - 20, ( cardWidth + cardMargin ) * 6 + 15, 15, RED );
-
-	rowOffset = 725;
-	draw( rowOffset );
-	rowOffset = 1030;
-	draw( rowOffset );
-}
-
 int main()
 {
+	auto store = Store::initializeStore();
+
 	InitWindow( screenWidth, screenHeight, "Eldorado" );
 
 	bool      shopOpened = false;
@@ -48,7 +23,7 @@ int main()
 
 	while ( !WindowShouldClose() )
 	{
-		Vector2 mousePoint = GetMousePosition();
+		const Vector2 mousePoint = GetMousePosition();
 		if ( CheckCollisionPointRec( mousePoint, turnBox )
 		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
@@ -79,7 +54,7 @@ int main()
 		if ( shopOpened )
 		{
 			DrawText( "Exit Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			DrawShop();
+			DrawShop( screenHeight, screenWidth, store );
 		}
 		else
 		{

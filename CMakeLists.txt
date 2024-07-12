@@ -43,8 +43,10 @@ target_sources(${PROJECT_NAME} PRIVATE
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	raylib
+	Renderer
 )
 
 add_subdirectory(src/Cards)
 add_subdirectory(src/Player)
+add_subdirectory(src/Renderer)
 add_subdirectory(src/Store)
