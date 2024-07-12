@@ -11,7 +11,9 @@
 		"objc-*",
 		"openmp-*",
 		"llvm-header-guard",
-		"misc-include-cleaner"
+		"misc-include-cleaner",
+		"readability-magic-numbers",
+		"cppcoreguidelines-avoid-magic-numbers"
 	],
 	"C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
 		"*",
