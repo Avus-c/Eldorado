@@ -4,40 +4,38 @@
 
 TEST( player, playing_cards )
 {
-	Player::Player player{ { Cards::Type::Adventurer,
-		                     Cards::Type::Captain,
-		                     Cards::Type::Cartographer,
-		                     Cards::Type::Compass },
-		                   {},
-		                   {},
-		                   {} };
+	Player::Player player{
+		{ Cards::ID::Adventurer, Cards::ID::Captain, Cards::ID::Cartographer, Cards::ID::Compass },
+		{},
+		{},
+		{}
+	};
 
 	auto startingHandSize = player.inHand.size();
 
 	ASSERT_TRUE( player.played.empty() );
 
-	Player::play( player, Cards::Type::Adventurer );
+	Player::play( player, Cards::ID::Adventurer );
 
 	EXPECT_EQ( player.inHand.size(), --startingHandSize );
 	EXPECT_EQ( player.played.size(), 1 );
-	EXPECT_EQ( player.played[ 0 ], Cards::Type::Adventurer );
+	EXPECT_EQ( player.played[ 0 ], Cards::ID::Adventurer );
 
-	Player::play( player, Cards::Type::Cartographer );
+	Player::play( player, Cards::ID::Cartographer );
 
 	EXPECT_EQ( player.inHand.size(), --startingHandSize );
 	EXPECT_EQ( player.played.size(), 2 );
-	EXPECT_EQ( player.played[ 1 ], Cards::Type::Cartographer );
+	EXPECT_EQ( player.played[ 1 ], Cards::ID::Cartographer );
 }
 
 TEST( player, drawing_cards )
 {
-	Player::Player player{ { Cards::Type::Adventurer, Cards::Type::Captain },
-		                   {},
-		                   {},
-		                   { Cards::Type::Cartographer,
-		                     Cards::Type::Compass,
-		                     Cards::Type::Compass,
-		                     Cards::Type::Compass } };
+	Player::Player player{
+		{ Cards::ID::Adventurer, Cards::ID::Captain },
+		{},
+		{},
+		{ Cards::ID::Cartographer, Cards::ID::Compass, Cards::ID::Compass, Cards::ID::Compass }
+	};
 
 	auto startingHandSize     = player.inHand.size();
 	auto startingDrawPileSize = player.drawPile.size();
@@ -58,10 +56,10 @@ TEST( player, drawing_cards )
 
 TEST( player, over_drawing_cards )
 {
-	Player::Player player{ { Cards::Type::Adventurer, Cards::Type::Captain },
+	Player::Player player{ { Cards::ID::Adventurer, Cards::ID::Captain },
 		                   {},
-		                   { Cards::Type::Compass, Cards::Type::Compass },
-		                   { Cards::Type::Cartographer, Cards::Type::Compass } };
+		                   { Cards::ID::Compass, Cards::ID::Compass },
+		                   { Cards::ID::Cartographer, Cards::ID::Compass } };
 
 	Player::draw( player, 3 );
 
@@ -72,10 +70,10 @@ TEST( player, over_drawing_cards )
 
 TEST( player, over_drawing_not_enough_cards )
 {
-	Player::Player player{ { Cards::Type::Adventurer, Cards::Type::Captain },
+	Player::Player player{ { Cards::ID::Adventurer, Cards::ID::Captain },
 		                   {},
-		                   { Cards::Type::Compass },
-		                   { Cards::Type::Cartographer } };
+		                   { Cards::ID::Compass },
+		                   { Cards::ID::Cartographer } };
 
 	Player::draw( player, 3 );
 
@@ -86,10 +84,10 @@ TEST( player, over_drawing_not_enough_cards )
 
 TEST( player, end_of_turn_draw )
 {
-	Player::Player player{ { Cards::Type::Adventurer, Cards::Type::Captain },
+	Player::Player player{ { Cards::ID::Adventurer, Cards::ID::Captain },
 		                   {},
 		                   {},
-		                   { Cards::Type::Cartographer, Cards::Type::Compass } };
+		                   { Cards::ID::Cartographer, Cards::ID::Compass } };
 
 	Player::reDraw( player );
 
@@ -97,13 +95,12 @@ TEST( player, end_of_turn_draw )
 	ASSERT_TRUE( player.drawPile.empty() );
 	EXPECT_EQ( player.inHand.size(), 4 );
 
-	player = { { Cards::Type::Adventurer,
-		         Cards::Type::Captain,
-		         Cards::Type::Cartographer,
-		         Cards::Type::Compass },
-		       {},
-		       {},
-		       { Cards::Type::Cartographer, Cards::Type::Compass } };
+	player = {
+		{ Cards::ID::Adventurer, Cards::ID::Captain, Cards::ID::Cartographer, Cards::ID::Compass },
+		{},
+		{},
+		{ Cards::ID::Cartographer, Cards::ID::Compass }
+	};
 
 	Player::reDraw( player );
 
@@ -114,10 +111,10 @@ TEST( player, end_of_turn_draw )
 
 TEST( player, finish_turn )
 {
-	Player::Player player{ { Cards::Type::Adventurer, Cards::Type::Captain },
-		                   { Cards::Type::Cartographer, Cards::Type::Compass },
+	Player::Player player{ { Cards::ID::Adventurer, Cards::ID::Captain },
+		                   { Cards::ID::Cartographer, Cards::ID::Compass },
 		                   {},
-		                   { Cards::Type::Cartographer, Cards::Type::Compass } };
+		                   { Cards::ID::Cartographer, Cards::ID::Compass } };
 
 	Player::finishTurn( player );
 

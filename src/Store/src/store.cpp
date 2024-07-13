@@ -10,32 +10,32 @@ namespace Store
 auto initializeStore() -> Store
 {
 	constexpr Store store{ { {
-		                       { Cards::Type::Telephone },
-		                       { Cards::Type::TreasureChest },
-		                       { Cards::Type::Photographer },
-		                       { Cards::Type::Scout },
-		                       { Cards::Type::Explorer },
-		                       { Cards::Type::JackOfAllTrades },
+		                       { Cards::ID::Telephone },
+		                       { Cards::ID::TreasureChest },
+		                       { Cards::ID::Photographer },
+		                       { Cards::ID::Scout },
+		                       { Cards::ID::Explorer },
+		                       { Cards::ID::JackOfAllTrades },
 		                   } },
 		                   { {
-		                       { Cards::Type::Compass },
-		                       { Cards::Type::Cartographer },
-		                       { Cards::Type::IndigenousPeople },
-		                       { Cards::Type::Scientist },
-		                       { Cards::Type::TravelDiary },
-		                       { Cards::Type::Captain },
-		                       { Cards::Type::Pioneer },
-		                       { Cards::Type::MightyMachete },
-		                       { Cards::Type::Millionaire },
-		                       { Cards::Type::Journalist },
-		                       { Cards::Type::Adventurer },
-		                       { Cards::Type::PropellerPlane },
+		                       { Cards::ID::Compass },
+		                       { Cards::ID::Cartographer },
+		                       { Cards::ID::Indigenous },
+		                       { Cards::ID::Scientist },
+		                       { Cards::ID::TravelDiary },
+		                       { Cards::ID::Captain },
+		                       { Cards::ID::Pioneer },
+		                       { Cards::ID::MightyMachete },
+		                       { Cards::ID::Millionaire },
+		                       { Cards::ID::Journalist },
+		                       { Cards::ID::Adventurer },
+		                       { Cards::ID::PropellerPlane },
 		                   } } };
 
 	return store;
 }
 
-void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
+void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 {
 	if ( blackMarket )
 	{
@@ -52,7 +52,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 		iter->count--;
 		if ( iter->count == 0 )
 		{
-			iter->type = Cards::Type::Empty;
+			iter->type = Cards::ID::Empty;
 		};
 
 		if ( justTake )
@@ -72,7 +72,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 		*empty_slot = *iter;
 
 		iter->count = 0;
-		iter->type  = Cards::Type::Empty;
+		iter->type  = Cards::ID::Empty;
 
 		return;
 	}
@@ -91,7 +91,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 	iter->count--;
 	if ( iter->count == 0 )
 	{
-		iter->type = Cards::Type::Empty;
+		iter->type = Cards::ID::Empty;
 	};
 }
 

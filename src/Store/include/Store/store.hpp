@@ -10,8 +10,8 @@ namespace Store
 
 struct StoreCard
 {
-	Cards::Type type  = Cards::Type::Empty;
-	uint8_t     count = 3;
+	Cards::ID type  = Cards::ID::Empty;
+	uint8_t   count = 3;
 };
 
 struct Store
@@ -22,7 +22,7 @@ struct Store
 
 auto initializeStore() -> Store;
 
-void buy( Store &store, Cards::Type card, bool blackMarket = false, bool justTake = false );
+void buy( Store &store, Cards::ID card, bool blackMarket = false, bool justTake = false );
 
 } // namespace Store
 

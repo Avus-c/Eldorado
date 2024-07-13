@@ -41,7 +41,7 @@ void draw( Player &player, size_t count )
 	}
 }
 
-void play( Player &player, Cards::Type toPlay )
+void play( Player &player, Cards::ID toPlay )
 {
 	if ( player.inHand.empty() )
 	{
@@ -49,7 +49,7 @@ void play( Player &player, Cards::Type toPlay )
 	}
 
 	auto iter = std::ranges::find_if( player.inHand,
-	                                  [ toPlay ]( Cards::Type type )
+	                                  [ toPlay ]( Cards::ID type )
 	                                  {
 		                                  return toPlay == type;
 	                                  } );

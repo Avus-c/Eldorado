@@ -7,7 +7,7 @@
 namespace Cards
 {
 
-enum class Type : uint8_t
+enum class ID : uint8_t
 {
 	Empty,
 	// Base-Cards
@@ -24,29 +24,45 @@ enum class Type : uint8_t
 	JackOfAllTrades, // Tausendsassa
 
 	// Black-Market
-	Compass,          // Kompass
-	Cartographer,     // Kartograph
-	IndigenousPeople, // Ureinwohner
-	Scientist,        // Wissenschaftlerin
-	TravelDiary,      // Reisetagebuch
-	Captain,          // Kapitän
-	Pioneer,          // Pionier
-	MightyMachete,    // Mächtige Machete
-	Millionaire,      // Millionärin
-	Journalist,       // Journalistin
-	Adventurer,       // Abenteurerin
-	PropellerPlane,   // Propeller-Flugzeug
+	Compass,        // Kompass
+	Cartographer,   // Kartograph
+	Indigenous,     // Ureinwohner
+	Scientist,      // Wissenschaftlerin
+	TravelDiary,    // Reisetagebuch
+	Captain,        // Kapitän
+	Pioneer,        // Pionier
+	MightyMachete,  // Mächtige Machete
+	Millionaire,    // Millionärin
+	Journalist,     // Journalistin
+	Adventurer,     // Abenteurerin
+	PropellerPlane, // Propeller-Flugzeug
+};
+
+enum class Type : uint8_t
+{
+	None,
+	Action,
+	Gold,
+	Forest,
+	Water,
+	Joker,
 };
 
 struct Card
 {
-	Type        cardType = Type::Empty;
+	ID          id    = ID::Empty;
+	Type        type  = Type::None;
+	uint8_t     value = 0; // 0 on action cards
+	uint8_t     cost  = 0;
 	std::string title;
-	std::string desc;
-	uint8_t     value     = 0; // 0 on action cards
-	uint8_t     cost      = 0;
 	bool        singleUse = false;
+	std::string desc      = "";
 };
+
+namespace Database
+{
+auto getCard( ID cardId ) -> const Card &;
+} // namespace Database
 
 struct Entity
 {

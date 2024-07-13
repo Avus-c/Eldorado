@@ -21,15 +21,15 @@ enum class Phase : uint8_t
 
 struct Player
 {
-	std::vector<Cards::Type> inHand;
-	std::vector<Cards::Type> played;
-	std::vector<Cards::Type> discardPile;
-	std::vector<Cards::Type> drawPile;
+	std::vector<Cards::ID> inHand;
+	std::vector<Cards::ID> played;
+	std::vector<Cards::ID> discardPile;
+	std::vector<Cards::ID> drawPile;
 };
 
 void reDraw( Player &player );
 void draw( Player &player, size_t count );
-void play( Player &player, Cards::Type toPlay );
+void play( Player &player, Cards::ID toPlay );
 void finishTurn( Player &player );
 void shuffleDiscardPile( Player &player );
 
