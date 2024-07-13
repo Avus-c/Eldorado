@@ -27,7 +27,7 @@ const std::array<Card, 22> database{ {
 	{ .id = ID::Captain,		.type = Type::Water	, .value = 3, .cost = 2, .title = "Kapitän" },
 	{ .id = ID::Pioneer,		.type = Type::Forest, .value = 5, .cost = 5, .title = "Pionier" },
 	{ .id = ID::MightyMachete,	.type = Type::Forest, .value = 6, .cost = 3, .title = "Mächtige Machete", .singleUse = true },
-	{ .id = ID::Millionaire,	.type = Type::Gold	, .value = 4, .cost = 5, .title = "Millionärin" },
+	{ .id = ID::Millionaire,	.type = Type::Gold	, .value = 4, .cost = 5, .title = "Müllionärin" },
 	{ .id = ID::Journalist,		.type = Type::Gold	, .value = 3, .cost = 3, .title = "Journalistin" },
 	{ .id = ID::Adventurer,		.type = Type::Joker	, .value = 2, .cost = 4, .title = "Abenteurerin" },
 	{ .id = ID::PropellerPlane,	.type = Type::Joker	, .value = 4, .cost = 4, .title = "Propeller-Flugzeug", .singleUse = true }

@@ -42,7 +42,7 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 		auto iter = std::ranges::find_if( store.blackMarket,
 		                                  [ card ]( StoreCard scard )
 		                                  {
-			                                  return scard.type == card;
+			                                  return scard.id == card;
 		                                  } );
 		if ( iter == store.blackMarket.end() && iter->count == 0 )
 		{
@@ -52,7 +52,7 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 		iter->count--;
 		if ( iter->count == 0 )
 		{
-			iter->type = Cards::ID::Empty;
+			iter->id = Cards::ID::Empty;
 		};
 
 		if ( justTake )
@@ -72,7 +72,7 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 		*empty_slot = *iter;
 
 		iter->count = 0;
-		iter->type  = Cards::ID::Empty;
+		iter->id    = Cards::ID::Empty;
 
 		return;
 	}
@@ -80,7 +80,7 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 	auto iter = std::ranges::find_if( store.market,
 	                                  [ card ]( StoreCard scard )
 	                                  {
-		                                  return scard.type == card;
+		                                  return scard.id == card;
 	                                  } );
 
 	if ( iter == store.market.end() || iter->count == 0 )
@@ -91,7 +91,7 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 	iter->count--;
 	if ( iter->count == 0 )
 	{
-		iter->type = Cards::ID::Empty;
+		iter->id = Cards::ID::Empty;
 	};
 }
 

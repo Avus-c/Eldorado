@@ -3,6 +3,8 @@
 #include <Renderer/store.hpp>
 #include <Store/store.hpp>
 
+#include <vector>
+
 const int screenWidth  = 1800;
 const int screenHeight = 1200;
 
@@ -21,6 +23,8 @@ int main()
 
 	SetTargetFPS( 30 );
 
+	std::vector<Cards::Entity> cardEntities{};
+
 	while ( !WindowShouldClose() )
 	{
 		const Vector2 mousePoint = GetMousePosition();
@@ -33,7 +37,8 @@ int main()
 		if ( CheckCollisionPointRec( mousePoint, shopBox )
 		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
-			shopOpened = !shopOpened;
+			shopOpened   = !shopOpened;
+			cardEntities = createCardEntities( store, screenWidth, screenHeight );
 		}
 
 		BeginDrawing();
@@ -54,11 +59,12 @@ int main()
 		if ( shopOpened )
 		{
 			DrawText( "Exit Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			DrawShop( screenHeight, screenWidth, store );
+			DrawShop( screenHeight, screenWidth, store, cardEntities );
 		}
 		else
 		{
 			DrawText( "Open Shop", screenWidth - 145 - 145, 7, 20, WHITE );
+			cardEntities.clear();
 		}
 
 		EndDrawing();
