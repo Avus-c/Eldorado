@@ -20,10 +20,9 @@ struct Store
 	std::array<StoreCard, 12> blackMarket;
 };
 
-constexpr auto initializeStore() -> Store;
+auto initializeStore() -> Store;
 
-constexpr void
-buy( Store &store, Cards::Type card, bool blackMarket = false, bool justTake = false );
+void buy( Store &store, Cards::Type card, bool blackMarket = false, bool justTake = false );
 
 } // namespace Store
 

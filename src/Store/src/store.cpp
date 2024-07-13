@@ -7,7 +7,7 @@
 namespace Store
 {
 
-constexpr auto initializeStore() -> Store
+auto initializeStore() -> Store
 {
 	constexpr Store store{ { {
 		                       { Cards::Type::Telephone },
@@ -35,7 +35,7 @@ constexpr auto initializeStore() -> Store
 	return store;
 }
 
-constexpr void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
+void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 {
 	if ( blackMarket )
 	{
