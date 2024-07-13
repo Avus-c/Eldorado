@@ -1,6 +1,6 @@
 #include <Store/store.hpp>
 
-#include <Cards/cards_mock.hpp>
+#include <Cards/cards.hpp>
 
 #include <algorithm>
 

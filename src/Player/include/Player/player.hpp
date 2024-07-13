@@ -1,7 +1,7 @@
 #ifndef PLAYER_PLAYER_HPP
 #define PLAYER_PLAYER_HPP
 
-#include <Cards/cards_mock.hpp>
+#include <Cards/cards.hpp>
 
 #include <cstdint>
 #include <vector>

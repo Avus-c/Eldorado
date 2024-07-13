@@ -2,6 +2,7 @@
 #define CARDS_CARDS_HPP
 
 #include <cstdint>
+#include <string>
 
 namespace Cards
 {
@@ -35,6 +36,25 @@ enum class Type : uint8_t
 	Journalist,       // Journalistin
 	Adventurer,       // Abenteurerin
 	PropellerPlane,   // Propeller-Flugzeug
+};
+
+struct Card
+{
+	Type        cardType = Type::Empty;
+	std::string title;
+	std::string desc;
+	uint8_t     value     = 0; // 0 on action cards
+	uint8_t     cost      = 0;
+	bool        singleUse = false;
+};
+
+struct Entity
+{
+	Card     card{};
+	uint32_t posX   = 0;
+	uint32_t posY   = 0;
+	uint32_t width  = 0;
+	uint32_t height = 0;
 };
 
 } // namespace Cards

@@ -1,7 +1,7 @@
 #ifndef STORE_STORE_HPP
 #define STORE_STORE_HPP
 
-#include <Cards/cards_mock.hpp>
+#include <Cards/cards.hpp>
 
 #include <array>
 
