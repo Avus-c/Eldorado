@@ -13,6 +13,8 @@ file(
 )
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPM.cmake)
 
+add_compile_options(-Wall -Wextra -Wpedantic)
+
 CPMAddPackage(
 	NAME googletest
 	GITHUB_REPOSITORY google/googletest
@@ -35,6 +37,11 @@ CPMAddPackage(
 	EXCLUDE_FROM_ALL Yes
 	SYSTEM Yes
 )
+
+if(raylib_ADDED)
+	target_compile_options(raylib PRIVATE -w)
+	target_compile_options(glfw PRIVATE -w)
+endif()
 
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE

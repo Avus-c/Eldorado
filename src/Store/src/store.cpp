@@ -1,6 +1,6 @@
 #include <Store/store.hpp>
 
-#include <Cards/cards_mock.hpp>
+#include <Cards/cards.hpp>
 
 #include <algorithm>
 
@@ -10,39 +10,39 @@ namespace Store
 auto initializeStore() -> Store
 {
 	constexpr Store store{ { {
-		                       { Cards::Type::Telephone },
-		                       { Cards::Type::TreasureChest },
-		                       { Cards::Type::Photographer },
-		                       { Cards::Type::Scout },
-		                       { Cards::Type::Explorer },
-		                       { Cards::Type::JackOfAllTrades },
+		                       { Cards::ID::Telephone },
+		                       { Cards::ID::TreasureChest },
+		                       { Cards::ID::Photographer },
+		                       { Cards::ID::Scout },
+		                       { Cards::ID::Explorer },
+		                       { Cards::ID::JackOfAllTrades },
 		                   } },
 		                   { {
-		                       { Cards::Type::Compass },
-		                       { Cards::Type::Cartographer },
-		                       { Cards::Type::IndigenousPeople },
-		                       { Cards::Type::Scientist },
-		                       { Cards::Type::TravelDiary },
-		                       { Cards::Type::Captain },
-		                       { Cards::Type::Pioneer },
-		                       { Cards::Type::MightyMachete },
-		                       { Cards::Type::Millionaire },
-		                       { Cards::Type::Journalist },
-		                       { Cards::Type::Adventurer },
-		                       { Cards::Type::PropellerPlane },
+		                       { .id = Cards::ID::Compass, .blackMarket = true },
+		                       { .id = Cards::ID::Cartographer, .blackMarket = true },
+		                       { .id = Cards::ID::Indigenous, .blackMarket = true },
+		                       { .id = Cards::ID::Scientist, .blackMarket = true },
+		                       { .id = Cards::ID::TravelDiary, .blackMarket = true },
+		                       { .id = Cards::ID::Captain, .blackMarket = true },
+		                       { .id = Cards::ID::Pioneer, .blackMarket = true },
+		                       { .id = Cards::ID::MightyMachete, .blackMarket = true },
+		                       { .id = Cards::ID::Millionaire, .blackMarket = true },
+		                       { .id = Cards::ID::Journalist, .blackMarket = true },
+		                       { .id = Cards::ID::Adventurer, .blackMarket = true },
+		                       { .id = Cards::ID::PropellerPlane, .blackMarket = true },
 		                   } } };
 
 	return store;
 }
 
-void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
+void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 {
 	if ( blackMarket )
 	{
 		auto iter = std::ranges::find_if( store.blackMarket,
 		                                  [ card ]( StoreCard scard )
 		                                  {
-			                                  return scard.type == card;
+			                                  return scard.id == card;
 		                                  } );
 		if ( iter == store.blackMarket.end() && iter->count == 0 )
 		{
@@ -52,7 +52,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 		iter->count--;
 		if ( iter->count == 0 )
 		{
-			iter->type = Cards::Type::Empty;
+			iter->id = Cards::ID::Empty;
 		};
 
 		if ( justTake )
@@ -69,10 +69,11 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 		{
 			return;
 		}
-		*empty_slot = *iter;
+		*empty_slot             = *iter;
+		empty_slot->blackMarket = false;
 
 		iter->count = 0;
-		iter->type  = Cards::Type::Empty;
+		iter->id    = Cards::ID::Empty;
 
 		return;
 	}
@@ -80,7 +81,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 	auto iter = std::ranges::find_if( store.market,
 	                                  [ card ]( StoreCard scard )
 	                                  {
-		                                  return scard.type == card;
+		                                  return scard.id == card;
 	                                  } );
 
 	if ( iter == store.market.end() || iter->count == 0 )
@@ -91,7 +92,7 @@ void buy( Store &store, Cards::Type card, bool blackMarket, bool justTake )
 	iter->count--;
 	if ( iter->count == 0 )
 	{
-		iter->type = Cards::Type::Empty;
+		iter->id = Cards::ID::Empty;
 	};
 }
 

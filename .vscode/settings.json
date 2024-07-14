@@ -13,7 +13,10 @@
 		"llvm-header-guard",
 		"misc-include-cleaner",
 		"readability-magic-numbers",
-		"cppcoreguidelines-avoid-magic-numbers"
+		"cppcoreguidelines-avoid-magic-numbers",
+		"bugprone-easily-swappable-parameters",
+		"bugprone-narrowing-conversions",
+		"cppcoreguidelines-narrowing-conversions"
 	],
 	"C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
 		"*",
