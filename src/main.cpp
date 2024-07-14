@@ -1,5 +1,6 @@
 #include <raylib.h>
 
+#include <Networking/networking.hpp>
 #include <Renderer/card.hpp>
 #include <Renderer/store.hpp>
 #include <Store/store.hpp>
@@ -23,6 +24,8 @@ int main()
 	Color     shopBoxColor = DARKGREEN;
 	Rectangle fpsBox{ 0, 0, 150, 30 };
 
+	int player = 0;
+
 	SetTargetFPS( 30 );
 
 	std::vector<Renderer::Card> shopCardEntities{};
@@ -33,7 +36,11 @@ int main()
 		if ( CheckCollisionPointRec( mousePoint, turnBox )
 		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
-			turnActive = !turnActive;
+			std::string msg = "Player " + std::to_string( player ) + " finished turn.";
+			player          = ( player + 1 ) % 4;
+			msg             = msg + " Player " + std::to_string( player ) + " is next.";
+			sendMessage( msg );
+			turnActive = player == 0;
 		}
 
 		if ( CheckCollisionPointRec( mousePoint, shopBox )
@@ -62,6 +69,10 @@ int main()
 				     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && item.storeCard->count > 0 )
 				{
 					Store::buy( store, item.storeCard->id, item.storeCard->blackMarket );
+
+					std::string msg = "Player " + std::to_string( player ) + " buys "
+					                + Cards::Database::getCard( item.storeCard->id ).title;
+					sendMessage( msg );
 				}
 			}
 		}
