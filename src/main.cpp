@@ -1,5 +1,6 @@
 #include <raylib.h>
 
+#include <Renderer/card.hpp>
 #include <Renderer/store.hpp>
 #include <Store/store.hpp>
 
@@ -23,7 +24,7 @@ int main()
 
 	SetTargetFPS( 30 );
 
-	std::vector<Cards::Entity> cardEntities{};
+	std::vector<Renderer::Card> cardEntities{};
 
 	while ( !WindowShouldClose() )
 	{
@@ -38,7 +39,7 @@ int main()
 		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
 			shopOpened   = !shopOpened;
-			cardEntities = createCardEntities( store, screenWidth, screenHeight );
+			cardEntities = Renderer::createCardEntities( store, screenWidth, screenHeight );
 		}
 
 		BeginDrawing();
@@ -59,7 +60,7 @@ int main()
 		if ( shopOpened )
 		{
 			DrawText( "Exit Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			DrawShop( screenHeight, screenWidth, store, cardEntities );
+			Renderer::DrawShop( screenHeight, screenWidth, store, cardEntities );
 		}
 		else
 		{

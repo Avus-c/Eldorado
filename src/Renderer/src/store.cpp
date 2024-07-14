@@ -1,3 +1,4 @@
+#include <Renderer/card.hpp>
 #include <Renderer/store.hpp>
 
 #include <raylib.h>
@@ -6,14 +7,14 @@
 #include <print>
 #include <string>
 
+namespace Renderer
+{
+
 const int cardMargin  = 5;
 const int columnCount = 6;
 const int margin      = cardMargin * ( columnCount - 1 );
 
-void DrawShop( int                         screenHeight,
-               int                         screenWidth,
-               Store::Store               &store,
-               std::vector<Cards::Entity> &entities )
+void DrawShop( int screenHeight, int screenWidth, Store::Store &store, std::vector<Card> &entities )
 {
 	const int tmp        = 155;
 	const int cardWidth  = 200;
@@ -52,13 +53,11 @@ void DrawShop( int                         screenHeight,
 	               RED );
 }
 
-auto createCardEntities( Store::Store &store,
-                         int           totalWidth,
-                         int           totalHeight ) -> std::vector<Cards::Entity>
+auto createCardEntities( Store::Store &store, int totalWidth, int totalHeight ) -> std::vector<Card>
 {
-	std::vector<Cards::Entity> entities{};
+	std::vector<Card> entities{};
 
-	const int tmp     = ( columnCount * Cards::Entity::width ) + ( margin );
+	const int tmp     = ( columnCount * Card::width ) + ( margin );
 	const int boarder = ( totalWidth - tmp ) / 2;
 
 	int i = 0;
@@ -66,8 +65,8 @@ auto createCardEntities( Store::Store &store,
 	{
 		const auto &cardData = Cards::Database::getCard( item.id );
 
-		Cards::Entity entity{ cardData };
-		entity.posX  = boarder + ( i * Cards::Entity::width ) + ( i * cardMargin );
+		Card entity{ cardData };
+		entity.posX  = boarder + ( i * Card::width ) + ( i * cardMargin );
 		entity.posY  = totalHeight - 400;
 		entity.count = item.count;
 
@@ -81,8 +80,8 @@ auto createCardEntities( Store::Store &store,
 	{
 		const auto &cardData = Cards::Database::getCard( item.id );
 
-		Cards::Entity entity{ cardData };
-		entity.posX  = boarder + ( i % 6 * Cards::Entity::width ) + ( i % 6 * cardMargin );
+		Card entity{ cardData };
+		entity.posX  = boarder + ( i % 6 * Card::width ) + ( i % 6 * cardMargin );
 		entity.posY  = totalHeight - posY;
 		entity.count = item.count;
 
@@ -96,3 +95,5 @@ auto createCardEntities( Store::Store &store,
 
 	return entities;
 }
+
+} // namespace Renderer

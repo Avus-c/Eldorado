@@ -64,17 +64,6 @@ namespace Database
 auto getCard( ID cardId ) -> const Card &;
 } // namespace Database
 
-struct Entity
-{
-	Card     card{};
-	uint32_t posX  = 0;
-	uint32_t posY  = 0;
-	uint8_t  count = 0;
-
-	static const uint32_t width  = 200;
-	static const uint32_t height = 300;
-};
-
 } // namespace Cards
 
 #endif // CARDS_CARDS_HPP
