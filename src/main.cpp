@@ -21,6 +21,7 @@ int main()
 	Color     turnBoxColor = DARKGRAY;
 	Rectangle shopBox{ screenWidth - 152 - 152, 2, 150, 30 };
 	Color     shopBoxColor = DARKGREEN;
+	Rectangle fpsBox{ 0, 0, 150, 30 };
 
 	SetTargetFPS( 30 );
 
@@ -70,6 +71,10 @@ int main()
 
 		DrawRectangleRec( turnBox, turnBoxColor );
 		DrawRectangleRec( shopBox, shopBoxColor );
+
+		DrawRectangleRec( fpsBox, RED );
+		const std::string fps = std::to_string( GetFPS() ) + " FPS";
+		DrawText( fps.c_str(), 10, 3, 20, BLACK );
 
 		if ( turnActive )
 		{
