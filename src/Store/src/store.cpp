@@ -18,18 +18,18 @@ auto initializeStore() -> Store
 		                       { Cards::ID::JackOfAllTrades },
 		                   } },
 		                   { {
-		                       { Cards::ID::Compass },
-		                       { Cards::ID::Cartographer },
-		                       { Cards::ID::Indigenous },
-		                       { Cards::ID::Scientist },
-		                       { Cards::ID::TravelDiary },
-		                       { Cards::ID::Captain },
-		                       { Cards::ID::Pioneer },
-		                       { Cards::ID::MightyMachete },
-		                       { Cards::ID::Millionaire },
-		                       { Cards::ID::Journalist },
-		                       { Cards::ID::Adventurer },
-		                       { Cards::ID::PropellerPlane },
+		                       { .id = Cards::ID::Compass, .blackMarket = true },
+		                       { .id = Cards::ID::Cartographer, .blackMarket = true },
+		                       { .id = Cards::ID::Indigenous, .blackMarket = true },
+		                       { .id = Cards::ID::Scientist, .blackMarket = true },
+		                       { .id = Cards::ID::TravelDiary, .blackMarket = true },
+		                       { .id = Cards::ID::Captain, .blackMarket = true },
+		                       { .id = Cards::ID::Pioneer, .blackMarket = true },
+		                       { .id = Cards::ID::MightyMachete, .blackMarket = true },
+		                       { .id = Cards::ID::Millionaire, .blackMarket = true },
+		                       { .id = Cards::ID::Journalist, .blackMarket = true },
+		                       { .id = Cards::ID::Adventurer, .blackMarket = true },
+		                       { .id = Cards::ID::PropellerPlane, .blackMarket = true },
 		                   } } };
 
 	return store;
@@ -69,7 +69,8 @@ void buy( Store &store, Cards::ID card, bool blackMarket, bool justTake )
 		{
 			return;
 		}
-		*empty_slot = *iter;
+		*empty_slot             = *iter;
+		empty_slot->blackMarket = false;
 
 		iter->count = 0;
 		iter->id    = Cards::ID::Empty;

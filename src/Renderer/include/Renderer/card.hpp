@@ -2,6 +2,7 @@
 #define RENDERER_CARD_HPP
 
 #include <Cards/cards.hpp>
+#include <Store/store.hpp>
 
 #include <cstdint>
 
@@ -9,13 +10,12 @@ namespace Renderer
 {
 struct Card
 {
-	Cards::Card card{};
-	uint32_t    posX  = 0;
-	uint32_t    posY  = 0;
-	uint8_t     count = 0;
+	const Store::StoreCard *const storeCard;
+	int                           posX = 0;
+	int                           posY = 0;
 
-	static const uint32_t width  = 200;
-	static const uint32_t height = 300;
+	static const int width  = 200;
+	static const int height = 300;
 };
 
 } // namespace Renderer

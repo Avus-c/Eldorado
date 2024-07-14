@@ -8,13 +8,11 @@
 namespace Renderer
 {
 
-void DrawShop( int                screenHeight,
-               int                screenWidth,
-               Store::Store      &store,
-               std::vector<Card> &entities );
-auto createCardEntities( Store::Store &store,
-                         int           totalWidth,
-                         int           totalHeight ) -> std::vector<Card>;
+void DrawShop( int screenHeight, const std::vector<Card> &entities );
+
+auto createCardEntities( const Store::Store &store,
+                         int                 totalWidth,
+                         int                 totalHeight ) -> std::vector<Card>;
 
 } // namespace Renderer
 

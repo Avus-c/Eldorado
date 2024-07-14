@@ -10,8 +10,9 @@ namespace Store
 
 struct StoreCard
 {
-	Cards::ID id    = Cards::ID::Empty;
-	uint8_t   count = 3;
+	Cards::ID id          = Cards::ID::Empty;
+	uint8_t   count       = 3;
+	bool      blackMarket = false;
 };
 
 struct Store

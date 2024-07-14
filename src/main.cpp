@@ -24,7 +24,7 @@ int main()
 
 	SetTargetFPS( 30 );
 
-	std::vector<Renderer::Card> cardEntities{};
+	std::vector<Renderer::Card> shopCardEntities{};
 
 	while ( !WindowShouldClose() )
 	{
@@ -38,8 +38,31 @@ int main()
 		if ( CheckCollisionPointRec( mousePoint, shopBox )
 		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
 		{
-			shopOpened   = !shopOpened;
-			cardEntities = Renderer::createCardEntities( store, screenWidth, screenHeight );
+			shopOpened = !shopOpened;
+			if ( shopOpened )
+			{
+				shopCardEntities = Renderer::createCardEntities( store, screenWidth, screenHeight );
+			}
+			else
+			{
+				shopCardEntities.clear();
+			}
+		}
+
+		if ( shopOpened )
+		{
+			for ( auto &item : shopCardEntities )
+			{
+				const Rectangle rec{ (float) item.posX,
+					                 (float) item.posY,
+					                 Renderer::Card::width,
+					                 Renderer::Card::height };
+				if ( CheckCollisionPointRec( mousePoint, rec )
+				     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && item.storeCard->count > 0 )
+				{
+					Store::buy( store, item.storeCard->id, item.storeCard->blackMarket );
+				}
+			}
 		}
 
 		BeginDrawing();
@@ -60,12 +83,11 @@ int main()
 		if ( shopOpened )
 		{
 			DrawText( "Exit Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			Renderer::DrawShop( screenHeight, screenWidth, store, cardEntities );
+			Renderer::DrawShop( screenHeight, shopCardEntities );
 		}
 		else
 		{
 			DrawText( "Open Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			cardEntities.clear();
 		}
 
 		EndDrawing();
