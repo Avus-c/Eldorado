@@ -8,13 +8,22 @@
 #include <vector>
 
 const int screenWidth  = 1800;
-const int screenHeight = 1200;
+const int screenHeight = 1000;
+
+void centerWindow( int windowWidth, int windowHeight )
+{
+	const auto monitor       = GetCurrentMonitor();
+	const auto monitorWidth  = GetMonitorWidth( monitor );
+	const auto monitorHeight = GetMonitorHeight( monitor );
+	SetWindowPosition( ( monitorWidth - windowWidth ) / 2, ( monitorHeight - windowHeight ) / 2 );
+}
 
 int main()
 {
 	auto store = Store::initializeStore();
 
 	InitWindow( screenWidth, screenHeight, "Eldorado" );
+	centerWindow( screenWidth, screenHeight );
 
 	bool      shopOpened = false;
 	bool      turnActive = false;
