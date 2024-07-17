@@ -43,6 +43,30 @@ if(raylib_ADDED)
 	target_compile_options(glfw PRIVATE -w)
 endif()
 
+CPMAddPackage(
+	NAME curl
+	GITHUB_REPOSITORY curl/curl
+	GIT_TAG curl-8_8_0
+	EXCLUDE_FROM_ALL Yes
+	SYSTEM Yes
+	OPTIONS
+	"PICKY_COMPILER Off"
+	"BUILD_CURL_EXE Off"
+	"BUILD_SHARED_LIBS Off"
+	"BUILD_STATIC_LIBS On"
+	"CURL_DISABLE_INSTALL On"
+	"BUILD_LIBCURL_DOCS Off"
+	"BUILD_MISC_DOCS Off"
+	"ENABLE_CURL_MANUAL Off"
+	"CURL_ENABLE_SSL On"
+	"CURL_USE_SCHANNEL On"
+)
+
+if(curl_ADDED)
+	target_compile_options(libcurl_static PRIVATE -w)
+	target_compile_options(libcurl_object PRIVATE -w)
+endif()
+
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE
 	src/main.cpp
@@ -51,9 +75,11 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
 	raylib
 	Renderer
+	Networking
 )
 
 add_subdirectory(src/Cards)
+add_subdirectory(src/Networking)
 add_subdirectory(src/Player)
 add_subdirectory(src/Renderer)
 add_subdirectory(src/Store)
