@@ -5,6 +5,20 @@
 
 namespace Player
 {
+auto initialize() -> Player
+{
+	Player player{ .discardPile = {
+		               Cards::ID::Traveller,
+		               Cards::ID::Traveller,
+		               Cards::ID::Traveller,
+		               Cards::ID::Traveller,
+		               Cards::ID::Researcher,
+		               Cards::ID::Researcher,
+		               Cards::ID::Researcher,
+		               Cards::ID::Sailor,
+		           } };
+	finishTurn( player );
+}
 
 void reDraw( Player &player )
 {

@@ -19,9 +19,12 @@ CPMAddPackage(
 	NAME googletest
 	GITHUB_REPOSITORY google/googletest
 	GIT_TAG main # gtest follows a live-at-head policy
-	OPTIONS "INSTALL_GTEST OFF" "gtest_force_shared_crt ON" "BUILD_GMOCK OFF"
 	EXCLUDE_FROM_ALL Yes
 	SYSTEM Yes
+	OPTIONS
+		"INSTALL_GTEST OFF"
+		"gtest_force_shared_crt ON"
+		"BUILD_GMOCK OFF"
 )
 
 if(BUILD_TESTING)
@@ -50,16 +53,16 @@ CPMAddPackage(
 	EXCLUDE_FROM_ALL Yes
 	SYSTEM Yes
 	OPTIONS
-	"PICKY_COMPILER Off"
-	"BUILD_CURL_EXE Off"
-	"BUILD_SHARED_LIBS Off"
-	"BUILD_STATIC_LIBS On"
-	"CURL_DISABLE_INSTALL On"
-	"BUILD_LIBCURL_DOCS Off"
-	"BUILD_MISC_DOCS Off"
-	"ENABLE_CURL_MANUAL Off"
-	"CURL_ENABLE_SSL On"
-	"CURL_USE_SCHANNEL On"
+		"PICKY_COMPILER Off"
+		"BUILD_CURL_EXE Off"
+		"BUILD_SHARED_LIBS Off"
+		"BUILD_STATIC_LIBS On"
+		"CURL_DISABLE_INSTALL On"
+		"BUILD_LIBCURL_DOCS Off"
+		"BUILD_MISC_DOCS Off"
+		"ENABLE_CURL_MANUAL Off"
+		"CURL_ENABLE_SSL On"
+		"CURL_USE_SCHANNEL On"
 )
 
 if(curl_ADDED)
@@ -76,6 +79,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 	raylib
 	Renderer
 	Networking
+	Player
 )
 
 add_subdirectory(src/Cards)

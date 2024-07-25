@@ -1,6 +1,7 @@
 #include <raylib.h>
 
 #include <Networking/networking.hpp>
+#include <Player/player.hpp>
 #include <Renderer/card.hpp>
 #include <Renderer/store.hpp>
 #include <Store/store.hpp>
@@ -18,20 +19,57 @@ void centerWindow( int windowWidth, int windowHeight )
 	SetWindowPosition( ( monitorWidth - windowWidth ) / 2, ( monitorHeight - windowHeight ) / 2 );
 }
 
-int main()
+void checkTurnButton( const Rectangle &turnBox, int *player, bool *turnActive )
+{
+	const Vector2 mousePoint = GetMousePosition();
+	if ( CheckCollisionPointRec( mousePoint, turnBox )
+	     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
+	{
+		std::string msg = "Player " + std::to_string( *player ) + " finished turn.";
+		*player         = ( *player + 1 ) % 4;
+		msg             = msg + " Player " + std::to_string( *player ) + " is next.";
+		sendMessage( msg );
+		*turnActive = *player == 0;
+	}
+}
+
+void checkShopButton( const Rectangle             &shopBox,
+                      bool                        *shopOpened,
+                      Store::Store                &store,
+                      std::vector<Renderer::Card> &shopCardEntities )
+{
+	const Vector2 mousePoint = GetMousePosition();
+	if ( CheckCollisionPointRec( mousePoint, shopBox )
+	     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
+	{
+		*shopOpened = !*shopOpened;
+		if ( *shopOpened )
+		{
+			shopCardEntities = Renderer::createCardEntities( store, screenWidth, screenHeight );
+		}
+		else
+		{
+			shopCardEntities.clear();
+		}
+	}
+}
+
+auto main() -> int
 {
 	auto store = Store::initializeStore();
 
 	InitWindow( screenWidth, screenHeight, "Eldorado" );
 	centerWindow( screenWidth, screenHeight );
 
-	bool      shopOpened = false;
-	bool      turnActive = false;
-	Rectangle turnBox{ screenWidth - 152, 2, 150, 30 };
-	Color     turnBoxColor = DARKGRAY;
-	Rectangle shopBox{ screenWidth - 152 - 152, 2, 150, 30 };
-	Color     shopBoxColor = DARKGREEN;
-	Rectangle fpsBox{ 0, 0, 150, 30 };
+	const Rectangle turnBox{ screenWidth - 152, 2, 150, 30 };
+	const Rectangle shopBox{ screenWidth - 152 - 152, 2, 150, 30 };
+	const Rectangle fpsBox{ 0, 0, 150, 30 };
+
+	auto turnBoxColor = DARKGRAY;
+	auto shopBoxColor = DARKGREEN;
+
+	bool shopOpened = false;
+	bool turnActive = false;
 
 	int player = 0;
 
@@ -39,41 +77,23 @@ int main()
 
 	std::vector<Renderer::Card> shopCardEntities{};
 
+	auto _player = Player::initialize();
+
 	while ( !WindowShouldClose() )
 	{
-		const Vector2 mousePoint = GetMousePosition();
-		if ( CheckCollisionPointRec( mousePoint, turnBox )
-		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
-		{
-			std::string msg = "Player " + std::to_string( player ) + " finished turn.";
-			player          = ( player + 1 ) % 4;
-			msg             = msg + " Player " + std::to_string( player ) + " is next.";
-			sendMessage( msg );
-			turnActive = player == 0;
-		}
-
-		if ( CheckCollisionPointRec( mousePoint, shopBox )
-		     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) )
-		{
-			shopOpened = !shopOpened;
-			if ( shopOpened )
-			{
-				shopCardEntities = Renderer::createCardEntities( store, screenWidth, screenHeight );
-			}
-			else
-			{
-				shopCardEntities.clear();
-			}
-		}
+		checkTurnButton( turnBox, &player, &turnActive );
+		checkShopButton( shopBox, &shopOpened, store, shopCardEntities );
 
 		if ( shopOpened )
 		{
 			for ( auto &item : shopCardEntities )
 			{
+				const Vector2   mousePoint = GetMousePosition();
 				const Rectangle rec{ (float) item.posX,
 					                 (float) item.posY,
 					                 Renderer::Card::width,
 					                 Renderer::Card::height };
+
 				if ( CheckCollisionPointRec( mousePoint, rec )
 				     && IsMouseButtonPressed( MOUSE_LEFT_BUTTON ) && item.storeCard->count > 0 )
 				{

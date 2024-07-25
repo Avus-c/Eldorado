@@ -27,6 +27,8 @@ struct Player
 	std::vector<Cards::ID> drawPile;
 };
 
+auto initialize() -> Player;
+
 void reDraw( Player &player );
 void draw( Player &player, size_t count );
 void play( Player &player, Cards::ID toPlay );
