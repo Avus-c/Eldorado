@@ -14,8 +14,9 @@ struct Card
 	int                           posX = 0;
 	int                           posY = 0;
 
-	static const int width  = 200;
-	static const int height = 300;
+	static const int width  = 180;
+	static const int height = 250;
+	static const int margin = 5; // space between cards
 };
 
 } // namespace Renderer

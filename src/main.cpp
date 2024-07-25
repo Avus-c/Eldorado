@@ -108,7 +108,7 @@ int main()
 		if ( shopOpened )
 		{
 			DrawText( "Exit Shop", screenWidth - 145 - 145, 7, 20, WHITE );
-			Renderer::DrawShop( screenHeight, shopCardEntities );
+			Renderer::DrawShop( shopCardEntities );
 		}
 		else
 		{

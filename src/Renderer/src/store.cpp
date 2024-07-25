@@ -10,14 +10,8 @@
 namespace Renderer
 {
 
-const int cardMargin  = 5;
-const int columnCount = 6;
-const int margin      = cardMargin * ( columnCount - 1 );
-
-void DrawShop( int screenHeight, const std::vector<Card> &entities )
+void DrawShop( const std::vector<Card> &entities )
 {
-	const int tmp = 155;
-
 	for ( const auto &item : entities )
 	{
 		auto       color    = GRAY;
@@ -47,15 +41,6 @@ void DrawShop( int screenHeight, const std::vector<Card> &entities )
 		const std::string kostet = std::to_string( cardData.cost ) + " Gold";
 		DrawText( kostet.c_str(), item.posX + 10, item.posY + 45, 20, BLACK );
 	}
-	// market row
-	int rowOffset = 400;
-
-	// divider
-	DrawRectangle( 90 + tmp,
-	               screenHeight - rowOffset - 20,
-	               ( Card::width + cardMargin ) * columnCount + 15,
-	               15,
-	               RED );
 }
 
 auto createCardEntities( const Store::Store &store,
@@ -64,37 +49,44 @@ auto createCardEntities( const Store::Store &store,
 {
 	std::vector<Card> entities{};
 
-	const int tmp     = ( columnCount * Card::width ) + ( margin );
-	const int boarder = ( totalWidth - tmp ) / 2;
+	const int columnCount = 6;
+	const int cardSpace_x = ( columnCount * ( Card::width + Card::margin ) ) - ( Card::margin );
+	const int boarder_x   = ( totalWidth - cardSpace_x ) / 2;
+	const int cardSpace_y = ( Card::height + Card::margin ) * 3;
+	const int boarder_y   = ( totalHeight - cardSpace_y ) / 2;
+
+	const int secondBlackMarketRow = boarder_y;
+	const int firstBlackMarketRow  = boarder_y + Card::height + Card::margin;
+	const int marketRow            = boarder_y + Card::height * 2 + Card::margin * 3;
 
 	int i = 0;
 	for ( const auto &item : store.market )
 	{
 		const Card card{
 			.storeCard = &item,
-			.posX      = boarder + ( i * Card::width ) + ( i * cardMargin ),
-			.posY      = totalHeight - 400,
+			.posX      = boarder_x + ( i * Card::width ) + ( i * Card::margin ),
+			.posY      = marketRow,
 		};
 
 		entities.push_back( card );
 		i++;
 	}
 
-	int posYOffset = 725;
+	int posYOffset = firstBlackMarketRow;
 	i              = 0;
 	for ( const auto &item : store.blackMarket )
 	{
 		const Card card{
 			.storeCard = &item,
-			.posX      = boarder + ( i % 6 * Card::width ) + ( i % 6 * cardMargin ),
-			.posY      = totalHeight - posYOffset,
+			.posX      = boarder_x + ( i % 6 * Card::width ) + ( i % 6 * Card::margin ),
+			.posY      = posYOffset,
 		};
 
 		entities.push_back( card );
 
 		if ( i >= 5 )
 		{
-			posYOffset = 1030;
+			posYOffset = secondBlackMarketRow;
 		}
 		i++;
 	}
